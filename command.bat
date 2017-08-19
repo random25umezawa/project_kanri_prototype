@@ -1,1 +1,1 @@
-C:\xampp\php\php D:\programs\php_mysql\main.php
+C:\xampp\php\php main.php

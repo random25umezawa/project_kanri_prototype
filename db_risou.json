@@ -1,15 +1,14 @@
 {
-  "name":"name",
-  "columns": {
-    "0":{"id":0,"name":"exp","vartype":"int"},
-    "1":{"id":1,"name":"name","vartype":"varchar","size":15},
-    "2":{"id":2,"name":"gold","vartype":"int"},
-    "3":{"id":3,"name":"name","vartype":"varchar","size":15},
-    "4":{"id":4,"name":"num","vartype":"int"}
-  },
-  "classes": {
-    "0":{"id":1,"name":"user","column_groups":[{"1":1,"2":2},{"0":0}]},
-    "1":{"id":2,"name":"item","column_groups":[{"3":3}]},
-    "2":{"id":3,"name":"","classes":[0,1],"column_groups":[{"4":4}]}
-  }
+  "columns": [
+    {"id":0,"name":"exp","vartype":"int"},
+    {"id":1,"name":"name","vartype":"varchar","size":15},
+    {"id":2,"name":"gold","vartype":"int"},
+    {"id":3,"name":"name","vartype":"varchar","size":15},
+    {"id":4,"name":"num","vartype":"int"}
+  ],
+  "classes": [
+    {"id":0,"name":"user","column_groups":[[1,2],[0]]},
+    {"id":1,"name":"item","column_groups":[[3]]},
+    {"id":2,"name":"","classes":[0,1],"column_groups":[[4]]}
+  ]
 }
