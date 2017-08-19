@@ -4,11 +4,13 @@
 	require "db_get.php";
 	require "db_change.php";
 
-	$table_info = getDBInfoFromFile("db_risou.json");
+	$design_data = getDBInfoFromFile("db_risou.json");
 
-	$after_table_info = addedTableInfo($table_info);
+	$completed_data = addedTableInfo($design_data);
 
-	print_r($after_table_info);
+	$db_data = makeCompletedTableInfo($completed_data);
+
+	print_r($db_data);
 /*
 	$pdo = db_connect();
 
