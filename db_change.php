@@ -11,7 +11,7 @@ function getTypeAndSize($type) {
 }
 
 
-function db_changeDB() {
+function db_changeDB($pdo,$pre_table_cols,$table_cols) {
 	//henkou
 	foreach($pre_table_cols as $table_name => $cols) {
 		if(!array_key_exists($table_name,$table_cols)) {
@@ -35,7 +35,7 @@ function db_changeDB() {
 	}
 }
 
-function db_addDB() {
+function db_addDB($pdo,$pre_table_cols,$table_cols) {
 	//tuika
 	foreach($table_cols as $table_name => $cols) {
 		if(!array_key_exists($table_name,$pre_table_cols)) {

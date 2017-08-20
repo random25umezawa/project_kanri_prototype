@@ -12,6 +12,7 @@
 		<li><a href="./?seikei=1">seikei</a></li>
 		<li><a href="./?dbinfo=1">dbinfo</a></li>
 		<li><a href="./?dbnowstruct=1">dbnowstruct</a></li>
+		<li><a href="./?dbchange=1">dbchange</a></li>
 	</ul>
 END_OF_HTML;
 
@@ -35,6 +36,23 @@ END_OF_HTML;
 		$pdo = db_connect();
 
 		$db_now_struct = db_getTableColumns($pdo,db_getTableNames($pdo));
+
+		$html .= "<pre style='column-count:1;column-gap:25px;'>";
+		$html .= print_r($db_now_struct,true);
+		$html .= "</pre>";
+	}else if(array_key_exists("dbchange",$_REQUEST)) {
+		$pdo = db_connect();
+
+		$db_now_struct = db_getTableColumns($pdo,db_getTableNames($pdo));
+
+		$design_data = getDBInfoFromFile("db_risou.json");
+
+		$completed_data = addedTableInfo($design_data);
+
+		$db_data = makeCompletedTableInfo($completed_data);
+
+		db_changeDB($pdo,$db_now_struct,$db_data);
+		db_addDB($pdo,$db_now_struct,$db_data);
 
 		$html .= "<pre style='column-count:1;column-gap:25px;'>";
 		$html .= print_r($db_now_struct,true);
