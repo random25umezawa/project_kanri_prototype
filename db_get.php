@@ -23,15 +23,7 @@ function db_getTableColumns($pdo, $tables) {
 			$temp_types = getTypeAndSize($row['Type']);
 			$temp_types += $row;
 			$pre_table_cols[$table_name]["column"][$row['Field']] = $temp_types;
-			//printf("%s\n",mb_convert_encoding(print_r($row,true),'SJIS'));
 		}
-		/*
-		$stmt = $pdo->prepare(sprintf('show create table %s',$table_name));
-		$stmt->execute();
-		while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-			printf("%s\n",mb_convert_encoding(print_r($row,true),'SJIS'));
-		}
-		*/
 	}
 	return $pre_table_cols;
 }

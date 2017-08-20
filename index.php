@@ -11,6 +11,7 @@
 		<li><a href="./">nofunc</a></li>
 		<li><a href="./?seikei=1">seikei</a></li>
 		<li><a href="./?dbinfo=1">dbinfo</a></li>
+		<li><a href="./?dbnowstruct=1">dbnowstruct</a></li>
 	</ul>
 END_OF_HTML;
 
@@ -29,6 +30,14 @@ END_OF_HTML;
 
 		$html .= "<pre style='column-count:1;column-gap:25px;'>";
 		$html .= print_r($db_data,true);
+		$html .= "</pre>";
+	}else if(array_key_exists("dbnowstruct",$_REQUEST)) {
+		$pdo = db_connect();
+
+		$db_now_struct = db_getTableColumns($pdo,db_getTableNames($pdo));
+
+		$html .= "<pre style='column-count:1;column-gap:25px;'>";
+		$html .= print_r($db_now_struct,true);
 		$html .= "</pre>";
 	}
 
