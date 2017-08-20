@@ -1,1 +1,1 @@
-C:\xampp\php\php main.php
+C:\nginx\php\php main.php

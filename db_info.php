@@ -121,3 +121,7 @@ function getDBNameFromColumnGroups($classname, $columns, $column_group) {
 	}
 	return $db_name;
 }
+
+function getSQLInfo($completed_data, $column_ids) {
+
+}
