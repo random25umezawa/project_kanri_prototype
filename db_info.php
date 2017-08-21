@@ -34,6 +34,7 @@ function addedTableInfo($design_data) {
 			foreach($column_group as $column_id) {
 				$columns[$column_id]["db_name"] = $db_name;
 				$columns[$column_id]["col_name"] = $classes[$class_id]["name"]."_".$columns[$column_id]["name"];
+				$columns[$column_id]["parent"] = $class_id;
 			}
 		}
 	}
@@ -120,8 +121,4 @@ function getDBNameFromColumnGroups($classname, $columns, $column_group) {
 		$db_name .= "_".$columns[$column_group_id]["name"];
 	}
 	return $db_name;
-}
-
-function getSQLInfo($completed_data, $column_ids) {
-
 }

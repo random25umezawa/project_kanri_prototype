@@ -13,6 +13,7 @@
 		<li><a href="./?dbinfo=1">dbinfo</a></li>
 		<li><a href="./?dbnowstruct=1">dbnowstruct</a></li>
 		<li><a href="./?dbchange=1">dbchange</a></li>
+		<li><a href="./?dbget=1">dbget</a></li>
 	</ul>
 END_OF_HTML;
 
@@ -57,6 +58,36 @@ END_OF_HTML;
 		$html .= "<pre style='column-count:1;column-gap:25px;'>";
 		$html .= print_r($db_now_struct,true);
 		$html .= "</pre>";
+	}else if(array_key_exists("dbget",$_REQUEST)) {
+		$design_data = getDBInfoFromFile("db_risou.json");
+
+		$completed_data = addedTableInfo($design_data);
+
+		$pdo = db_connect();
+
+		$datas = array();
+		$datas[] = array(
+			"columns" => array(
+				1,2
+			),
+			"limit" => 10
+		);
+		$datas[] = array(
+			"columns" => array(
+				1,3,4
+			),
+			"limit" => 10
+		);
+		foreach($datas as $req) {
+			$result = db_getDataByJson($pdo,$completed_data,$req);
+
+			$html .= "---------------data---------------<br><pre style='column-count:1;column-gap:25px;'>";
+			$html .= print_r($req,true);
+			$html .= "</pre>";
+			$html .= "<br>---------------result---------------<br><pre style='column-count:1;column-gap:25px;'>";
+			$html .= print_r($result,true);
+			$html .= "</pre>";
+		}
 	}
 
 	echo $html;
