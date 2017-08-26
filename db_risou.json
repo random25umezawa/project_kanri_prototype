@@ -9,6 +9,6 @@
   "classes": [
     {"id":0,"name":"user","column_groups":[[1,2],[0]]},
     {"id":1,"name":"item","column_groups":[[3]]},
-    {"id":2,"name":"","classes":[0,1],"column_groups":[[4]]}
+    {"id":2,"name":"","classes":{"0":0,"1":0},"column_groups":[[4]]}
   ]
 }

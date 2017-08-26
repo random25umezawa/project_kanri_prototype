@@ -18,17 +18,28 @@ function addedTableInfo($design_data) {
 	foreach($design_data["classes"] as $class_data) {
 		$class_id = $class_data["id"];
 		$classes[$class_id] = $class_data;
-		if(!array_key_exists("classes",$classes[$class_id])) $classes[$class_id]["classes"] = array();
-		$classes[$class_id]["children"] = array();
+		$classes[$class_id]["classes"] = array();
+		$classes[$class_id]["relation"] = array();
+		if(!array_key_exists("classes",$class_data)) $class_data["classes"] = array();
+		if(!array_key_exists("relation",$class_data)) $class_data["relation"] = array();
+		if(!array_key_exists("column_groups",$classes[$class_id])) $classes[$class_id]["column_groups"] = array();
 
 		//複合クラスの親に子情報を追加して,クラス名を複合名にする
-		foreach($classes[$class_id]["classes"] as $parent_class_id) {
-			$classes[$parent_class_id]["children"][$class_id] = $class_id;
+		foreach($class_data["relation"] as $related_class_id) {
+			$classes[$class_id]["relation"][$related_class_id] = $related_class_id;
 		}
+		foreach($class_data["classes"] as $parent_class_id) {
+			$classes[$class_id]["classes"][$parent_class_id] = $parent_class_id;
+			$classes[$class_id]["relation"][$parent_class_id] = $parent_class_id;
+		}
+	}
+	foreach($classes as $class_id => $val) {
 		if($classes[$class_id]["classes"]) $classes[$class_id]["name"] = getMixedClassName($classes,$classes[$class_id]["classes"]);
 		$classes[$class_id]["key_name"] = $classes[$class_id]["name"]."_id";
+	}
 
 		//カラムの親情報とカラム名を補完する
+	foreach($classes as $class_id => $val) {
 		foreach($classes[$class_id]["column_groups"] as $column_group) {
 			$db_name = getDBNameFromColumnGroups($classes[$class_id]["name"],$columns,$column_group);
 			foreach($column_group as $column_id) {
@@ -109,7 +120,7 @@ function makeCompletedTableInfo($completed_data) {
 
 function getMixedClassName($classes,$class_ids) {
 	$class_names = array();
-	foreach($class_ids as $class_id) {
+	foreach($class_ids as $class_id => $flag) {
 		$class_names[$class_id] = $classes[$class_id]["name"];
 	}
 	return implode("_",$class_names);

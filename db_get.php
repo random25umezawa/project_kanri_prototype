@@ -58,3 +58,49 @@ function db_getDataByJson($pdo,$completed_data,$req) {
 	$sql_info["classes"] = $parent_graph;
 	return $sql_info;
 }
+
+function db_addDataWithClass($pdo,$completed_data,$req) {
+	$sql_info = array();
+	$sql_info["tables"] = array();
+	$insert_class_id = $req["class"];
+	foreach($completed_data["classes"][$req["class"]]["column_groups"] as $column_group) {
+		$table_name = "";
+		$columns = [];
+		foreach($column_group as $column_id) {
+			$column = $completed_data["columns"][$column_id];
+			$column["insert_data"] = $req["values"][$column_id];
+			$table_name = $column["db_name"];
+			$column["name"] = $completed_data["classes"][$req["class"]]["name"]."_".$column["name"];
+			$columns[] = $column;
+		}
+		if($completed_data["classes"][$req["class"]]["classes"]) {
+			foreach($completed_data["classes"][$req["class"]]["classes"] as $class_id => $flag) {
+				$columns[] = array(
+					"name" => $completed_data["classes"][$class_id]["key_name"],
+					"insert_data" => $req["classes"][$class_id]
+				);
+			}
+		}
+		$sql_info["tables"][$table_name] = $columns;
+	}
+	$sql_info["sqls"] = array();
+	$sql_info["results"] = array();
+	foreach($sql_info["tables"] as $db_name => $columns) {
+		$names = array();
+		$values = array();
+		foreach($columns as $column_id => $column) {
+			$names[] = $column["name"];
+			$values[] = "'".$column["insert_data"]."'";
+		}
+		$sql = sprintf("insert into %s (%s) values (%s);",$db_name,implode(",",$names),implode(",",$values));
+		print($sql);
+		$sql_info["sqls"][] = $sql;
+		try{
+		$sql_info["results"][] = $pdo->query($sql);
+	}catch(Exception $e) {
+		print($e->getMessage());
+			print(PHP_EOL);
+		}
+	}
+	return $sql_info;
+}

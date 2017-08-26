@@ -1,0 +1,26 @@
+{
+  "columns": [
+    {"id":0,"name":"name","vartype":"varchar","size":15},
+    {"id":1,"name":"name","vartype":"varchar","size":15},
+    {"id":2,"name":"lv","vartype":"int"},
+    {"id":3,"name":"name","vartype":"varchar","size":15},
+    {"id":4,"name":"num","vartype":"int"},
+    {"id":5,"name":"address","vartype":"varchar","size":63},
+    {"id":6,"name":"reg_date","vartype":"datetime","default":"CURRENT_TIMESTAMP"},
+    {"id":7,"name":"name","vartype":"varchar","size":15},
+    {"id":8,"name":"name","vartype":"varchar","size":15}
+  ],
+  "classes": [
+    {"id":0,"name":"user","column_groups":[[5,6],[0]],"label":0},
+    {"id":1,"name":"unique","column_groups":[[2]],"relation":[6,7],"label":2},
+    {"id":2,"name":"card","column_groups":[[1]],"relation":[9,10],"label":1},
+    {"id":3,"name":"power_up_item","column_groups":[[3]],"label":3},
+    {"id":4,"name":"rare","column_groups":[[7]],"label":7},
+    {"id":5,"name":"type","column_groups":[[8]],"label":8},
+    {"id":6,"name":"","classes":[0,1]},
+    {"id":7,"name":"","classes":[1,2]},
+    {"id":8,"name":"","classes":[1,3],"column_groups":[[4]]},
+    {"id":9,"name":"","classes":[2,4]},
+    {"id":10,"name":"","classes":[2,5]}
+  ]
+}
