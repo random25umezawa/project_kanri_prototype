@@ -18,18 +18,20 @@
 		foreach($columns as $column_id => $value) {
 			$column_name = $completed_data["columns"][$column_id]["col_name"];
 			if($completed_data["columns"][$column_id]["parent"] == $class_id) {
-				$table_name = $completed_data["columns"][$column_id]["db_name"];
+				$table_name = $completed_data["columns"][$column_id]["table_name"];
 				if(!array_key_exists($table_name,$tables)) $tables[$table_name] = array();
 				$tables[$table_name][$column_name] = $value;
 			}
 		}
+	}else {
+		$_REQUEST["columns"] = array();
 	}
 	if(array_key_exists("classes",$_REQUEST)) {
-		$classes = $_REQUEST["columns"];
-		foreach($columns as $column_id => $value) {
-			$column_name = $completed_data["columns"][$column_id]["col_name"];
-			if($completed_data["columns"][$column_id]["parent"] == $class_id) {
-				$table_name = $completed_data["columns"][$column_id]["db_name"];
+		$classes = $_REQUEST["classes"];
+		foreach($classes as $class_id => $value) {
+			$column_name = $completed_data["classes"][$class_id]["key_name"];
+			if($completed_data["classes"][$class_id]["parent"] == $class_id) {
+				$table_name = $completed_data["columns"][$column_id]["table_name"];
 				if(!array_key_exists($table_name,$tables)) $tables[$table_name] = array();
 				$tables[$table_name][$column_name] = $value;
 			}

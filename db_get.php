@@ -36,7 +36,7 @@ function db_getDataByJson($pdo,$completed_data,$req) {
 	$parent_graph = array();
 	foreach($req["columns"] as $column_id) {
 		$column = $completed_data["columns"][$column_id];
-		$table_name = $completed_data["columns"][$column_id]["db_name"];
+		$table_name = $completed_data["columns"][$column_id]["table_name"];
 		//取り出すカラム名を列挙
 		if(!array_key_exists($table_name,$sql_info["tables"])) $sql_info["tables"][$table_name] = array();
 		$sql_info["tables"][$table_name][$column_id] = $column["col_name"];
@@ -69,7 +69,7 @@ function db_addDataWithClass($pdo,$completed_data,$req) {
 		foreach($column_group as $column_id) {
 			$column = $completed_data["columns"][$column_id];
 			$column["insert_data"] = $req["values"][$column_id];
-			$table_name = $column["db_name"];
+			$table_name = $column["table_name"];
 			$column["name"] = $completed_data["classes"][$req["class"]]["name"]."_".$column["name"];
 			$columns[] = $column;
 		}
@@ -85,14 +85,14 @@ function db_addDataWithClass($pdo,$completed_data,$req) {
 	}
 	$sql_info["sqls"] = array();
 	$sql_info["results"] = array();
-	foreach($sql_info["tables"] as $db_name => $columns) {
+	foreach($sql_info["tables"] as $table_name => $columns) {
 		$names = array();
 		$values = array();
 		foreach($columns as $column_id => $column) {
 			$names[] = $column["name"];
 			$values[] = "'".$column["insert_data"]."'";
 		}
-		$sql = sprintf("insert into %s (%s) values (%s);",$db_name,implode(",",$names),implode(",",$values));
+		$sql = sprintf("insert into %s (%s) values (%s);",$table_name,implode(",",$names),implode(",",$values));
 		print($sql);
 		$sql_info["sqls"][] = $sql;
 		try{

@@ -28,7 +28,7 @@ END_OF_HTML;
 				<td>vartype</td>
 				<td>size</td>
 				<td>default</td>
-				<td>db_name</td>
+				<td>table_name</td>
 				<td>col_name</td>
 				<td>parent</td>
 			</tr>
@@ -43,7 +43,7 @@ PARTS;
 					<td>{$column["vartype"]}</td>
 					<td>{$column["size"]}</td>
 					<td>{$column["default"]}</td>
-					<td>{$column["db_name"]}</td>
+					<td>{$column["table_name"]}</td>
 					<td>{$column["col_name"]}</td>
 					<td>{$column["parent"]}({$completed_data["classes"][$column["parent"]]["name"]})</td>
 				</tr>
@@ -57,10 +57,11 @@ PARTS;
 			<tr>
 				<td>id</td>
 				<td>name</td>
-				<td>column_groups</td>
+				<td>column_group</td>
 				<td>classes</td>
 				<td>relation</td>
 				<td>key_name</td>
+				<td>table_name</td>
 				<td>-</td>
 			</tr>
 PARTS;
@@ -70,10 +71,11 @@ PARTS;
 				<tr>
 					<td>{$column["id"]}</td>
 					<td>{$column["name"]}</td>
-					<td>{$print_r($column["column_groups"],true)}</td>
+					<td>{$print_r($column["column_group"],true)}</td>
 					<td>{$print_r($column["classes"],true)}</td>
 					<td>{$print_r($column["relation"],true)}</td>
 					<td>{$column["key_name"]}</td>
+					<td>{$column["table_name"]}</td>
 					<td><button onclick="plus({$column["id"]})">plus</button></td>
 				</tr>
 PARTS;
@@ -123,8 +125,8 @@ console.log(completed_data);
 			form.append(pulldown);
 			fillPullDown(pulldown,parent_class_id);
 		}
-		for(var group_key in completed_data.classes[class_id].column_groups) {
-			var column_group = completed_data.classes[class_id].column_groups[group_key];
+		for(var group_key in completed_data.classes[class_id].column_group) {
+			var column_group = completed_data.classes[class_id].column_group[group_key];
 			for(var column_id of column_group) {
 				console.log("key",column_id);
 				var column = completed_data["columns"][column_id];

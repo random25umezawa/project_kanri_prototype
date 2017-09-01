@@ -32,7 +32,7 @@ END_OF_HTML;
 				<td>name</td>
 				<td>vartype</td>
 				<td>size</td>
-				<td>db_name</td>
+				<td>table_name</td>
 				<td>col_name</td>
 				<td>parent</td>
 			</tr>
@@ -45,7 +45,7 @@ PARTS;
 					<td>{$column["name"]}</td>
 					<td>{$column["vartype"]}</td>
 					<td>{$column["size"]}</td>
-					<td>{$column["db_name"]}</td>
+					<td>{$column["table_name"]}</td>
 					<td>{$column["col_name"]}</td>
 					<td>{$column["parent"]}({$completed_data["classes"][$column["parent"]]["name"]})</td>
 				</tr>
@@ -59,7 +59,7 @@ PARTS;
 			<tr>
 				<td>id</td>
 				<td>name</td>
-				<td>column_groups</td>
+				<td>column_group</td>
 				<td>classes</td>
 				<td>relation</td>
 				<td>key_name</td>
@@ -71,7 +71,7 @@ PARTS;
 				<tr>
 					<td>{$column["id"]}</td>
 					<td>{$column["name"]}</td>
-					<td>{$print_r($column["column_groups"],true)}</td>
+					<td>{$print_r($column["column_group"],true)}</td>
 					<td>{$print_r($column["classes"],true)}</td>
 					<td>{$print_r($column["relation"],true)}</td>
 					<td>{$column["key_name"]}</td>

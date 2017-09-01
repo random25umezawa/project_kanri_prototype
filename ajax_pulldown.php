@@ -17,11 +17,11 @@
 	$col_name = $completed_data["columns"][$label_id]["col_name"];
 	$columns[] = $key_name;
 	$columns[] = $col_name;
-	$db_name = $completed_data["columns"][$label_id]["db_name"];
+	$table_name = $completed_data["columns"][$label_id]["table_name"];
 
 	$pdo = db_connect();
 
-	$sql = sprintf("SELECT %s from %s", implode(",",$columns), $db_name);
+	$sql = sprintf("SELECT %s from %s", implode(",",$columns), $table_name);
 	$stmt = $pdo->query($sql);
 	$return_array = array();
 	while($ret = $stmt->fetch(PDO::FETCH_ASSOC)) {
